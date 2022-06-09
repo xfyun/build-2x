@@ -25,6 +25,7 @@
 
         - name: Buildah Action
           uses: redhat-actions/buildah-build@v2
+          id: build-image
           with:
             image: paddle 
             tags: v1 ${{ github.sha }}
@@ -33,6 +34,20 @@
               ./paddle/Dockerfile
             build-args: |
               some_arg=some_value
+
+        # Podman Login action (https://github.com/redhat-actions/podman-login) also be used to log in,
+        # in which case 'username' and 'password' can be omitted.
+        - name: Push To TTL.sh 
+          id: push-to-registry
+          uses: redhat-actions/push-to-registry@v2
+          with:
+            image: ${{ steps.build-image.outputs.image }}
+            tags: ${{ steps.build-image.outputs.tags }}
+            registry: ttl.sh 
+            #username: quay-user
+            #password: ${{ secrets.REGISTRY_PASSWORD }}
+        - name: Print image url
+          run: echo "Image pushed to ${{ steps.push-to-registry.outputs.registry-paths }}"
 
         - name: Building 
           run: |
