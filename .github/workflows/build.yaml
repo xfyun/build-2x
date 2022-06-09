@@ -30,7 +30,7 @@
             tags: v1 ${{ github.sha }}
             context: paddle
             containerfiles: |
-              ./Dockerfile
+              ./paddle/Dockerfile
             build-args: |
               some_arg=some_value
 
