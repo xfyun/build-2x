@@ -16,7 +16,7 @@
         - name: Checkout
           uses: actions/checkout@master
           with:
-            name: berlinsaint/containerfiles 
+            repository: berlinsaint/containerfiles 
 
         - name: Setup Go
           uses: actions/setup-go@v2
