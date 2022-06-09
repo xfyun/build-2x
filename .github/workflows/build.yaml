@@ -23,9 +23,16 @@
           with:
             go-version: 1.17
 
-        - name: Setup buildah
-          run: |
-            apt install -y buildah
+        - name: Buildah Action
+          uses: redhat-actions/buildah-build@v2
+          with:
+            image: paddle 
+            tags: v1 ${{ github.sha }}
+            workdir: paddle
+            containerfiles: |
+              ./Containerfile
+            build-args: |
+              some_arg=some_value
 
         - name: Building 
           run: |
