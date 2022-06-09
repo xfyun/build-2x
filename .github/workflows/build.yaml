@@ -28,7 +28,7 @@
           with:
             image: paddle 
             tags: v1 ${{ github.sha }}
-            workdir: paddle
+            context: paddle
             containerfiles: |
               ./Dockerfile
             build-args: |
